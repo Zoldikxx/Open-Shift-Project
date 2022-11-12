@@ -32,8 +32,6 @@ public class Admin {
             columnDefinition = "TEXT")
     private String email;
 
-    @OneToMany(mappedBy ="admin")
-    private List<Trip> trips;
     private boolean activation=false;
 
     public boolean isActivation() {

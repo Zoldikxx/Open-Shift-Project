@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entities.Station;
 import com.example.demo.entities.Trip;
+import com.example.demo.services.StationService;
 import com.example.demo.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import java.util.List;
 public class TripController {
 
     private TripService tripService;
+    private StationService stationService;
 
     @Autowired
     public TripController(TripService tripService) {
@@ -25,7 +28,6 @@ public class TripController {
     @PostMapping(path = "addtrip")
     public void addNewTrip(@RequestBody Trip trip){
         tripService.addNewTrip(trip);
-        //Update the Station.
     }
     @DeleteMapping(path = "delete/{tripId}")
     public void deleteTrip(@PathVariable Long tripId){
@@ -36,8 +38,8 @@ public class TripController {
     public void updateTrip(@PathVariable("tripId") Long tripId,
         @RequestParam(required = false) String startTime,
         @RequestParam(required = false) String endTime,
-        @RequestParam(required = false) String fromStation,
-        @RequestParam(required = false) String toStation){
-        tripService.updateTrip(tripId,startTime,endTime,fromStation,toStation);
+        @RequestParam(required = false) long fromStationId,
+        @RequestParam(required = false) long toStationId){
+        tripService.updateTrip(tripId,startTime,endTime,fromStationId,toStationId);
         }
 }

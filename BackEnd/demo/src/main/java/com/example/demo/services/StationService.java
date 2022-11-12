@@ -21,6 +21,12 @@ public class StationService {
         return stationRepository.findAll();
     }
 
+
+    public Station getStationById(long id){
+        return stationRepository.findById(id).orElseThrow(() ->new IllegalStateException(
+                "Station with id " + id + " does not exist"));
+    }
+
     public void addNewStation(Station station) {
         stationRepository.save(station);
         System.out.println(station);
