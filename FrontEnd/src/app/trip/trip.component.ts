@@ -62,11 +62,11 @@ export class TripComponent {
 
     }
     editStationTS(toStation: string, id: number) {
+        this.temp1 = this.trips.find((x) => x.id === id);
         let y = this.stations.find(
             (x) => x.name == toStation
         );
         console.log(y);
-        this.temp1 = this.trips.find((x) => x.id === id);
         this.temp1.toStation = y;
         this.sub = this.tripService.updateTrip(this.temp1).subscribe();
 
