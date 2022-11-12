@@ -28,8 +28,8 @@ export class TripserviceService {
   }
 
   updateTrip(trip: Trip): Observable<Trip> {
-    // id: number, fromStation: string, toStation: string, startTime: string, endTime: string
-    let updateStationUrl = `http://localhost:8080/api/trip/update/${trip.id}/?startTime=${trip.startTime}&endTime=${trip.endTime}&fromStation=${trip.fromStation}&toStation=${trip.toStation}`;
+    // http://localhost:8080/api/trip/update/1?startTime=1&endTime=asd&fromStationId=1&toStationId=2
+    let updateStationUrl = `http://localhost:8080/api/trip/update/${trip.id}/?startTime=${trip.startTime}&endTime=${trip.endTime}&fromStationId=${trip.fromStation.id}&toStationId=${trip.toStation.id}`;
     return this.http.put<Trip>(updateStationUrl, trip).pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

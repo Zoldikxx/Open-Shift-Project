@@ -14,6 +14,7 @@ export class StationComponent implements OnInit, OnDestroy {
     temp2: Station = { id: 0, name: '' };
     editable: boolean = false;
     uneditable: boolean = true;
+    addRowBoolean: boolean = false;
     newName: string = '';
     pageTitle = 'Stations List';
     stations: Station[] = [];
@@ -45,6 +46,14 @@ export class StationComponent implements OnInit, OnDestroy {
     endEdit() {
         this.editable = false;
         this.uneditable = true;
+    }
+
+    addRow() {
+        this.addRowBoolean = true;
+    }
+
+    cancelAddRow() {
+        this.addRowBoolean = false;
     }
 
     addStation() {

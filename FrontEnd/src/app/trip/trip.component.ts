@@ -16,12 +16,18 @@ export class TripComponent {
         private stationService: StationaerviceService
     ) { }
     temp1: any;
-    temp2: Trip = {
+    temp2: any = {
         id: 0,
         startTime: '',
         endTime: '',
-        fromStation: '',
-        toStation: '',
+        fromStation: {
+            id: 0,
+            name: ""
+        },
+        toStation: {
+            id: 0,
+            name: ""
+        }
     };
     pageTitle = 'Trips List';
     editable: boolean = false;
@@ -47,13 +53,21 @@ export class TripComponent {
     }
     editStationFS(fromStation: string, id: number) {
         this.temp1 = this.trips.find((x) => x.id === id);
-        this.temp1.fromStation = fromStation;
+        let y = this.stations.find(
+            (x) => x.name == fromStation
+        );
+        console.log(y);
+        this.temp1.fromStation = y;
         this.sub = this.tripService.updateTrip(this.temp1).subscribe();
 
     }
     editStationTS(toStation: string, id: number) {
+        let y = this.stations.find(
+            (x) => x.name == toStation
+        );
+        console.log(y);
         this.temp1 = this.trips.find((x) => x.id === id);
-        this.temp1.toStation = toStation;
+        this.temp1.toStation = y;
         this.sub = this.tripService.updateTrip(this.temp1).subscribe();
 
     }
@@ -80,8 +94,21 @@ export class TripComponent {
         this.uneditable = true;
         window.location.reload();
     }
+    setFromStation(event: any) {
+        this.temp2.fromStation = this.stations.find(
+            (x) => x.name == event.target.value
+        );
+        console.log(event.target.value);
+    }
+    setToStation(event: any) {
+        this.temp2.toStation = this.stations.find(
+            (x) => x.name == event.target.value
+        );
+        console.log(event.target.value);
+    }
 
     addTrip() {
+        console.log(this.temp2);
         this.tripService.addTrip(this.temp2).subscribe();
         this.sub = this.tripService.getTrip().subscribe({
             next: ad => this.trips = ad

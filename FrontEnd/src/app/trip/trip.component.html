@@ -1,7 +1,7 @@
 <div class="card">
     <!-- <div> -->
     <span class="card-header">{{ pageTitle }}
-        <button type="button" class="btn btn-secondary" style="margin-left: 3px">
+        <button type="button" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
             <a style="color: white;" href="http://localhost:4200/station">Station</a>
         </button>
     </span>
@@ -46,12 +46,12 @@
                             </div>
                         </td>
                         <td>
-                            <div *ngIf="uneditable && !editable">{{ trip.fromStation }}</div>
+                            <div *ngIf="uneditable && !editable">{{ trip.fromStation.name }}</div>
                             <div *ngIf="editable" class="input-group mb-1">
                                 <select #from name="FromStation" id="FromStation"
                                     (change)="editStationFS(from.value, trip.id)">
                                     <option value="" disabled selected>
-                                        {{ trip.fromStation }}
+                                        {{ trip.fromStation.name }}
                                     </option>
                                     <option *ngFor="let station of stations">
                                         {{ station.name }}
@@ -60,12 +60,12 @@
                             </div>
                         </td>
                         <td>
-                            <div *ngIf="uneditable && !editable">{{ trip.toStation }}</div>
+                            <div *ngIf="uneditable && !editable">{{ trip.toStation.name }}</div>
                             <div *ngIf="editable" class="input-group mb-1">
                                 <select #from name="ToStation" id="ToStation"
                                     (change)="editStationTS(from.value, trip.id)">
                                     <option value="" disabled selected>
-                                        {{ trip.toStation }}
+                                        {{ trip.toStation.name }}
                                     </option>
                                     <option *ngFor="let station of stations">
                                         {{ station.name }}
@@ -90,17 +90,25 @@
                         <td><input type="text" [(ngModel)]="temp2.endTime" /></td>
                         <td>
                             <div class="input-group mb-1">
-                                <select #from name="FromStation" id="FromStation" [(ngModel)]="temp2.fromStation">
+                                <select #from name="FromStation" id="FromStation" (change)="setFromStation($event)">
+                                    <option value="Select Station">
+                                        Select Station
+                                    </option>
                                     <option *ngFor="let station of stations">
                                         {{ station.name }}
+
                                     </option>
                                 </select>
                             </div>
                         </td>
                         <div class="input-group mb-1">
-                            <select #from name="ToStation" id="ToStation" [(ngModel)]="temp2.toStation">
+                            <select #from name="ToStation" id="ToStation" (change)="setToStation($event)">
+                                <option value="Select Station">
+                                    Select Station
+                                </option>
                                 <option *ngFor="let station of stations">
                                     {{ station.name }}
+
                                 </option>
                             </select>
                         </div>
