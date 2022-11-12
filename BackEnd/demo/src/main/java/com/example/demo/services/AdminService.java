@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Admin;
+import com.example.demo.entities.Station;
 import com.example.demo.entities.Trip;
 import com.example.demo.repositories.AdminRepository;
 import com.example.demo.repositories.TripRepository;
@@ -60,7 +61,7 @@ public class AdminService {
     }
 
     @Transactional
-    public void updateTrip(Long tripId, String startTime, String endTime, String fromStation, String toStation){
+    public void updateTrip(Long tripId, String startTime, String endTime,Station fromStation, Station toStation){
         Trip trip= tripRepository.findById(tripId).orElseThrow(() ->new IllegalStateException(
                 "Trip with id " + tripId + " does not exist"));
         if(startTime !=null&& !Objects.equals(trip.getStartTime(),startTime)){
@@ -69,10 +70,10 @@ public class AdminService {
         if(endTime !=null&& !Objects.equals(trip.getEndTime(),endTime)){
             trip.setEndTime(endTime);
         }
-        if(fromStation !=null&& fromStation.length()>0 && !Objects.equals(trip.getFromStation(),fromStation)){
+        if(fromStation !=null&& !Objects.equals(trip.getFromStation(),fromStation)){
             trip.setFromStation(fromStation);
         }
-        if(toStation !=null&& toStation.length()>0 && !Objects.equals(trip.getToStation(),toStation)){
+        if(toStation !=null&& !Objects.equals(trip.getToStation(),toStation)){
             trip.setToStation(toStation);
         }
     }

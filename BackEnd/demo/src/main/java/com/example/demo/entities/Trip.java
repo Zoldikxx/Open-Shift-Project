@@ -1,7 +1,8 @@
 package com.example.demo.entities;
 
 import javax.persistence.*;
-import com.example.demo.entities.Admin;
+
+import java.util.Optional;
 
 @Entity
 @Table
@@ -19,28 +20,29 @@ public class Trip {
     private long id;
     private String startTime;
     private String  endTime;
-    private String fromStation;
-    private String ToStation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="fromStation_id", nullable=false)
+    private Station fromStation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="toStation_id", nullable=false)
+    private Station toStation;
 
-    @ManyToOne
-    @JoinColumn(name="admin_id", nullable=false)
-    private Admin admin;
     public Trip() {
     }
 
-    public Trip(long id, String startTime, String endTime, String fromStation, String toStation) {
+    public Trip(long id, String startTime, String endTime, Station fromStation, Station toStation) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
         this.fromStation = fromStation;
-        ToStation = toStation;
+        this.toStation=toStation;
     }
 
-    public Trip(String startTime, String endTime, String fromStation, String toStation) {
+    public Trip(String startTime, String endTime, Station fromStation, Station toStation) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.fromStation = fromStation;
-        ToStation = toStation;
+        this.toStation = toStation;
     }
 
     public long getId() {
@@ -67,19 +69,19 @@ public class Trip {
         this.endTime = endTime;
     }
 
-    public String getFromStation() {
+    public Station getFromStation() {
         return fromStation;
     }
 
-    public void setFromStation(String fromStation) {
+    public void setFromStation(Station fromStation) {
         this.fromStation = fromStation;
     }
 
-    public String getToStation() {
-        return ToStation;
+    public Station getToStation() {
+        return toStation;
     }
 
-    public void setToStation(String toStation) {
-        ToStation = toStation;
+    public void setToStation(Station toStation) {
+        this.toStation = toStation;
     }
 }

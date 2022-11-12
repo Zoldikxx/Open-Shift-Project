@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -19,9 +20,11 @@ public class Station {
     private long id;
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "ts_fk",referencedColumnName = "id")
-    private List<Trip> stations;
+    @OneToMany(mappedBy = "fromStation",fetch = FetchType.EAGER)
+    private Set<Trip> fromStations;
+
+    @OneToMany(mappedBy = "toStation",fetch = FetchType.EAGER)
+    private Set<Trip> toStations;
 
     public long getId() {
         return id;

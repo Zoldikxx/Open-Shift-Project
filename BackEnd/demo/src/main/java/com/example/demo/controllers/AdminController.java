@@ -1,18 +1,22 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Admin;
+import com.example.demo.entities.Station;
 import com.example.demo.entities.Trip;
 import com.example.demo.repositories.AdminRepository;
 import com.example.demo.services.AdminService;
+import com.example.demo.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/admin")
 public class AdminController {
         private AdminService adminService;
+        private TripService tripService;
 
         @Autowired
         AdminRepository adminRepository;
@@ -51,13 +55,14 @@ public class AdminController {
         public void createTrip(@RequestBody Trip trip){
             adminService.createTrip(trip);
         }
+
         @PutMapping(path = "update/{tripId}")
         public void updateTrip(@PathVariable("tripId") Long tripId,
                                @RequestParam(required = false) String startTime,
                                @RequestParam(required = false) String endTime,
-                               @RequestParam(required = false) String fromStation,
-                               @RequestParam(required = false) String toStation){
-            adminService.updateTrip(tripId,startTime,endTime,fromStation,toStation);
+                               @RequestParam(required = false) long fromStationId,
+                               @RequestParam(required = false) long toStationId){
+            tripService.updateTrip(tripId,startTime,endTime,fromStationId,toStationId);
         }
 
         @GetMapping(path = "trips")
