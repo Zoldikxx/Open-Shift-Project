@@ -2,6 +2,6 @@
     window["env"] = window["env"] || {};
 
     // Environment variables
-    window["env"]["apiUrl"] = `${environment.apiUrl}`;
+    window["env"]["apiUrl"] = "http://localhost:8080";
     window["env"]["debug"] = true;
 })(this);
