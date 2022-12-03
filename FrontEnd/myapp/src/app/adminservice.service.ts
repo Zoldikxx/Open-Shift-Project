@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Admin } from './Admin';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AdminService {
 
   //Get Admins
   public getAdmin(): Observable<Admin[]> {
-    return this.http.get<Admin[]>(`http://localhost:8080/api/admin`).pipe(
+    return this.http.get<Admin[]>(`${environment.apiUrl}/api/admin`).pipe(
       tap((data: any) => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)
     );
@@ -20,13 +21,13 @@ export class AdminService {
 
   //SignUp
   public signUp(admin: Admin): Observable<Admin[]> {
-    return this.http.post<Admin[]>(`http://localhost:8080/api/admin/signup`, admin).pipe(
+    return this.http.post<Admin[]>(`${environment.apiUrl}/api/admin/signup`, admin).pipe(
       tap((data: any) => console.log('All', JSON.stringify(data))),
       catchError(this.handleError));
   }
   //SignIn
   public signIn(admin: Admin): Observable<void> {
-    return this.http.post<void>(`http://localhost:8080/api/admin/signin`, admin).pipe(
+    return this.http.post<void>(`${environment.apiUrl}/api/admin/signin`, admin).pipe(
       tap((data: any) => console.log('All', JSON.stringify(data))),
       catchError(this.handleError));
   }
